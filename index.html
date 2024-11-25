@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simple Calculator</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<style>
+    .calculator {
+  width: 300px;
+  margin: 50px auto;
+  background-color: #f0f0f0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#display {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 20px;
+  padding: 10px;
+  font-size: 24px;
+  text-align: right;
+  border: none;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+button {
+  width: 50px;
+  height: 40px;
+  margin: 5px;
+  padding: 10px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+</style>
+<body>
+	<div class="calculator">
+		<input type="text" id="display" />
+		<button id="clear">C</button>
+		<button id="equals">=</button>
+		<button id="add">+</button>
+		<button id="subtract">-</button>
+		<button id="multiply">*</button>
+		<button id="divide">/</button>
+		<button id="num-1">1</button>
+		<button id="num-2">2</button>
+		<button id="num-3">3</button>
+		<button id="num-4">4</button>
+			<button id="num-5">5</button>
+		<button id="num-6">6</button>
+		<button id="num-7">7</button>
+		<button id="num-8">8</button>
+		<button id="num-9">9</button>
+		<button id="num-0">0</button>
+		<!-- Add more number buttons -->
+	</div>
+	<script>
+	    // Get the display input and buttons
+const display = document.getElementById('display');
+const clearButton = document.getElementById('clear');
+const equalsButton = document.getElementById('equals');
+const addButton = document.getElementById('add');
+const subtractButton = document.getElementById('subtract');
+const multiplyButton = document.getElementById('multiply');
+const divideButton = document.getElementById('divide');
+const numberButtons = document.querySelectorAll('.num');
+
+// Add event listeners to buttons
+clearButton.addEventListener('click', clearDisplay);
+equalsButton.addEventListener('click', calculateResult);
+addButton.addEventListener('click', () => appendOperator('+'));
+subtractButton.addEventListener('click', () => appendOperator('-'));
+multiplyButton.addEventListener('click', () => appendOperator('*'));
+divideButton.addEventListener('click', () => appendOperator('/'));
+numberButtons.forEach(button => button.addEventListener('click', () => appendNumber(button.textContent)));
+// Function to clear the display
+function clearDisplay() {
+  display.value = '';
+}
+
+// Function to calculate the result
+function calculateResult() {
+  try {
+    const result = eval(display.value);
+    display.value = result;
+  } catch (error) {
+    display.value = 'Error';
+  }
+}
+
+// Function to append numbers to the display
+function appendNumber(number) {
+  display.value += number;
+}
+
+// Function to append operators to the display
+function appendOperator(operator) {
+  display.value += operator;
+}
+
+// Add event listener to window for keyboard input
+window.addEventListener('keydown', (event) => {
+  if (event.key >= 0 && event.key <= 9) {
+    appendNumber(event.key);
+  } else if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
+    appendOperator(event.key);
+  } else if (event.key === 'Enter') {
+    calculateResult();
+  } else if (event.key === 'Backspace') {
+    clearDisplay();
+  }
+});
+	</script>
+</body>
+</html>
